@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { Header } from "@/shared/ui/components/header";
+import { Footer } from "@/shared/ui/components/footer";
+import { ScrollProgress } from "@/shared/ui/components/scroll-progress";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -19,15 +22,25 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
+  modal,
 }: Readonly<{
   children: React.ReactNode;
+  modal: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="ru" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <div className="min-h-screen bg-gradient-to-br flex flex-col from-gray-900 via-purple-900 to-black text-white">
+          <Header />
+          <ScrollProgress />
+          <main className="container mx-auto py-8 px-4 md:px-8 flex-1">
+            {children}
+          </main>
+          <Footer />
+          {modal}
+        </div>
       </body>
     </html>
   );
